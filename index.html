@@ -7,7 +7,6 @@
     <meta name="description" content="Full-stack & mobile developer building production-ready systems. Flutter, Laravel, React.">
     <meta name="author" content="Ariq Haikal">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -22,17 +21,16 @@
             --bg-card: #13131A;
             --bg-card-hover: #1A1A24;
             --border: #1F1F2E;
-            --border-hover: #2E2E42;
+            --border-hover: #34D399; /* Changed to accent for stronger hover interaction */
 
             --text-primary: #F0F0F2;
             --text-secondary: #8A8A9B;
             --text-muted: #55556A;
 
-            --accent: #34D399;
+            --accent: #34D399; /* Emerald Green */
             --accent-dim: rgba(52, 211, 153, 0.12);
-            --accent-glow: rgba(52, 211, 153, 0.2);
-            --accent-secondary: #F59E0B;
-
+            --accent-glow: rgba(52, 211, 153, 0.3);
+            
             --font-display: 'Syne', sans-serif;
             --font-body: 'Outfit', sans-serif;
 
@@ -50,6 +48,7 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Fix for sticky nav covering headers */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -70,6 +69,7 @@
         a {
             color: inherit;
             text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         /* ═══════════════════════════════════════════
@@ -81,16 +81,15 @@
             inset: 0;
             z-index: 9999;
             pointer-events: none;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             background-repeat: repeat;
-            background-size: 256px 256px;
         }
 
         /* ═══════════════════════════════════════════
            SCROLLBAR
         ═══════════════════════════════════════════ */
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
@@ -106,6 +105,7 @@
 
         section {
             padding: 100px 0;
+            position: relative;
         }
 
         /* ═══════════════════════════════════════════
@@ -117,16 +117,18 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 16px 0;
-            background: rgba(7, 7, 10, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding: 20px 0;
+            background: rgba(7, 7, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         nav.scrolled {
+            padding: 16px 0;
             border-bottom-color: var(--border);
+            background: rgba(7, 7, 10, 0.9);
         }
 
         nav .container {
@@ -138,7 +140,7 @@
         .nav-logo {
             font-family: var(--font-display);
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             letter-spacing: -0.02em;
             color: var(--text-primary);
         }
@@ -154,145 +156,177 @@
         }
 
         .nav-links a {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 400;
             color: var(--text-secondary);
-            transition: color 0.25s ease;
-            letter-spacing: 0.01em;
+            position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-toggle {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             background: none;
             border: none;
             cursor: pointer;
             padding: 4px;
+            z-index: 1001;
         }
 
         .nav-toggle span {
             display: block;
-            width: 22px;
-            height: 1.5px;
-            background: var(--text-secondary);
-            transition: all 0.3s ease;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s var(--ease-out);
         }
 
+        /* Toggle Animation */
+        .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
         /* ═══════════════════════════════════════════
-           HERO
+           HERO SECTION
         ═══════════════════════════════════════════ */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            position: relative;
             padding-top: 80px;
         }
 
-        /* Gradient orb */
-        .hero::before {
-            content: '';
+        /* Ambient Orbs */
+        .hero-orb {
             position: absolute;
-            top: 10%;
-            right: -15%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
             border-radius: 50%;
-            pointer-events: none;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 20%;
+        .orb-1 {
+            top: -10%;
+            right: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+        }
+
+        .orb-2 {
+            bottom: 10%;
             left: -10%;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%); /* Subtle purple mix */
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(0, 20px); }
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
+            max-width: 800px;
         }
 
         .hero-label {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 14px;
+            padding: 8px 16px;
             background: var(--accent-dim);
-            border: 1px solid rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.2);
             border-radius: 100px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: var(--accent);
-            margin-bottom: 28px;
-            letter-spacing: 0.02em;
+            margin-bottom: 32px;
         }
 
-        .hero-label::before {
-            content: '';
-            width: 6px;
-            height: 6px;
+        .hero-label span {
+            width: 8px;
+            height: 8px;
             background: var(--accent);
             border-radius: 50%;
-            animation: pulse-dot 2s infinite;
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .hero h1 {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(3rem, 8vw, 5.5rem);
             font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.04em;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
             margin-bottom: 24px;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero h1 .accent {
+            background: none;
+            -webkit-text-fill-color: var(--accent);
             color: var(--accent);
         }
 
         .hero-desc {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 520px;
+            max-width: 580px;
             line-height: 1.7;
-            margin-bottom: 40px;
+            margin-bottom: 48px;
             font-weight: 300;
         }
 
         .hero-actions {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: 10px;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 12px;
             font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
             transition: all 0.3s var(--ease-out);
             cursor: pointer;
             border: none;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -301,34 +335,38 @@
         }
 
         .btn-primary:hover {
-            box-shadow: 0 0 30px var(--accent-glow);
             transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--accent-glow);
         }
 
         .btn-ghost {
-            background: transparent;
-            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
             border: 1px solid var(--border);
         }
 
         .btn-ghost:hover {
-            border-color: var(--border-hover);
-            color: var(--text-primary);
+            border-color: var(--text-primary);
             transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .btn svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
         }
 
         /* ═══════════════════════════════════════════
-           SECTION HEADERS
+           COMMON SECTIONS
         ═══════════════════════════════════════════ */
+        .section-header {
+            margin-bottom: 60px;
+        }
+
         .section-label {
             font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--accent);
@@ -337,44 +375,42 @@
 
         .section-title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 700;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
         .section-desc {
             color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 560px;
+            font-size: 1.05rem;
+            max-width: 600px;
             font-weight: 300;
             line-height: 1.7;
         }
 
-        .section-header {
-            margin-bottom: 56px;
-        }
-
         /* ═══════════════════════════════════════════
-           ABOUT
+           ABOUT SECTION
         ═══════════════════════════════════════════ */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
             align-items: start;
         }
 
         .about-text p {
             color: var(--text-secondary);
             font-weight: 300;
+            font-size: 1.05rem;
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .about-stats {
+        .stats-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
 
@@ -382,66 +418,67 @@
             padding: 24px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            transition: all 0.3s var(--ease-out);
+            border-radius: 16px;
+            transition: transform 0.3s var(--ease-out), border-color 0.3s;
         }
 
         .stat-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
         }
 
         .stat-number {
             font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 2.5rem;
+            font-weight: 700;
             color: var(--accent);
-            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 8px;
         }
 
         .stat-label {
-            font-size: 0.82rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-top: 4px;
-            font-weight: 400;
         }
 
         /* ═══════════════════════════════════════════
-           SKILLS
+           SKILLS SECTION
         ═══════════════════════════════════════════ */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
 
         .skill-group {
-            padding: 28px;
+            padding: 30px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 16px;
             transition: all 0.3s var(--ease-out);
         }
 
         .skill-group:hover {
             border-color: var(--border-hover);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
         }
 
         .skill-group-title {
             font-family: var(--font-display);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            margin-bottom: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .skill-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
 
         .skill-tag {
@@ -449,55 +486,62 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 8px;
-            font-size: 0.82rem;
-            font-weight: 400;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
+        }
+
+        .skill-group:hover .skill-tag {
+            border-color: rgba(52, 211, 153, 0.3);
+            color: var(--text-primary);
         }
 
         .skill-tag:hover {
-            border-color: var(--accent);
-            color: var(--accent);
             background: var(--accent-dim);
+            color: var(--accent) !important;
+            border-color: var(--accent) !important;
         }
 
         /* ═══════════════════════════════════════════
-           PROJECTS
+           PROJECTS SECTION
         ═══════════════════════════════════════════ */
         .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .project-card {
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 24px;
-            align-items: center;
-            padding: 32px;
+            gap: 32px;
+            padding: 40px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 20px;
             transition: all 0.4s var(--ease-out);
-            cursor: pointer;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
         }
 
         .project-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.03), transparent 60%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(52, 211, 153, 0.06), transparent 40%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s;
+            pointer-events: none;
         }
 
         .project-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+            transform: scale(1.01);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
         }
 
         .project-card:hover::before {
@@ -505,260 +549,199 @@
         }
 
         .project-content {
-            position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
-        .project-type {
-            font-size: 0.72rem;
-            font-weight: 600;
+        .project-subtitle {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             color: var(--accent);
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
         .project-title {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
         }
 
         .project-desc {
             color: var(--text-secondary);
-            font-size: 0.92rem;
             font-weight: 300;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            max-width: 580px;
+            margin-bottom: 24px;
+            max-width: 650px;
         }
 
         .project-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
         }
 
         .project-stack span {
+            font-size: 0.8rem;
             padding: 4px 10px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
             border-radius: 6px;
-            font-size: 0.72rem;
-            font-weight: 500;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
             color: var(--text-muted);
-            letter-spacing: 0.02em;
+        }
+
+        .project-card:hover .project-stack span {
+            border-color: var(--border-hover);
+            color: var(--text-secondary);
         }
 
         .project-arrow {
-            position: relative;
-            z-index: 1;
-            width: 48px;
-            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             border: 1px solid var(--border);
-            border-radius: 12px;
             color: var(--text-muted);
-            transition: all 0.3s var(--ease-out);
-            flex-shrink: 0;
+            transition: all 0.3s ease;
+            align-self: flex-start;
         }
 
         .project-card:hover .project-arrow {
+            background: var(--accent);
             border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-dim);
+            color: var(--bg-primary);
             transform: rotate(-45deg);
         }
 
-        .project-arrow svg {
-            width: 18px;
-            height: 18px;
-        }
-
         /* ═══════════════════════════════════════════
-           EDUCATION
+           EDUCATION SECTION
         ═══════════════════════════════════════════ */
         .edu-card {
             padding: 32px;
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            border-left: 3px solid var(--border);
+            border-radius: 0 16px 16px 0;
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            gap: 24px;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            transition: all 0.3s;
         }
 
-        .edu-degree {
+        .edu-card:hover {
+            border-left-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+
+        .edu-info h3 {
             font-family: var(--font-display);
             font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
-        .edu-school {
+        .edu-info p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
             font-weight: 300;
         }
 
         .edu-meta {
             text-align: right;
-            flex-shrink: 0;
         }
 
         .edu-year {
+            display: block;
             font-family: var(--font-display);
-            font-size: 0.82rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--accent);
-            letter-spacing: 0.02em;
         }
 
         .edu-gpa {
-            font-size: 0.82rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* Leadership */
-        .leadership-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 28px;
-        }
-
-        .leadership-item {
-            padding: 18px 22px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            transition: border-color 0.25s ease;
-        }
-
-        .leadership-item:hover {
-            border-color: var(--border-hover);
-        }
-
-        .leadership-item strong {
-            display: block;
-            color: var(--text-primary);
-            font-weight: 500;
-            margin-bottom: 2px;
         }
 
         /* ═══════════════════════════════════════════
-           CONTACT
+           CONTACT / FOOTER
         ═══════════════════════════════════════════ */
-        .contact {
+        .contact-cta {
             text-align: center;
-            padding-bottom: 80px;
+            padding: 80px 0;
+            background: radial-gradient(circle at center, rgba(52, 211, 153, 0.05) 0%, transparent 60%);
         }
 
-        .contact .section-desc {
-            margin: 0 auto 40px;
-        }
-
-        .contact-links {
+        .social-links {
             display: flex;
             justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        .contact-link {
-            display: inline-flex;
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: var(--bg-card);
+            justify-content: center;
             border: 1px solid var(--border);
             border-radius: 12px;
-            font-size: 0.88rem;
-            font-weight: 400;
             color: var(--text-secondary);
-            transition: all 0.3s var(--ease-out);
+            transition: all 0.3s ease;
+            background: var(--bg-card);
         }
 
-        .contact-link:hover {
-            border-color: var(--accent);
+        .social-link:hover {
             color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px var(--accent-dim);
         }
 
-        .contact-link svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* ═══════════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════════ */
         footer {
-            padding: 28px 0;
             border-top: 1px solid var(--border);
+            padding: 40px 0;
             text-align: center;
-        }
-
-        footer p {
-            font-size: 0.78rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            font-weight: 300;
         }
 
         /* ═══════════════════════════════════════════
-           SCROLL REVEAL
+           ANIMATIONS & RESPONSIVE
         ═══════════════════════════════════════════ */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+            transition: all 0.8s var(--ease-out);
         }
 
-        .reveal.visible {
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
 
-        /* ═══════════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════════ */
         @media (max-width: 768px) {
-            section {
-                padding: 72px 0;
-            }
-
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--bg-secondary);
                 flex-direction: column;
-                background: rgba(7, 7, 10, 0.95);
-                backdrop-filter: blur(20px);
-                padding: 20px 24px;
-                gap: 16px;
-                border-bottom: 1px solid var(--border);
+                padding: 100px 40px;
+                transition: right 0.4s var(--ease-out);
+                border-left: 1px solid var(--border);
             }
 
             .nav-links.open {
-                display: flex;
+                right: 0;
+                box-shadow: -10px 0 50px rgba(0,0,0,0.5);
             }
 
             .nav-toggle {
@@ -766,61 +749,50 @@
             }
 
             .hero h1 {
-                font-size: clamp(2.4rem, 9vw, 3.5rem);
+                font-size: 2.8rem;
             }
 
             .about-grid {
                 grid-template-columns: 1fr;
-                gap: 36px;
             }
 
             .project-card {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 20px;
             }
 
             .project-arrow {
+                position: absolute;
+                top: 24px;
+                right: 24px;
                 width: 40px;
                 height: 40px;
             }
-
+            
             .edu-card {
                 flex-direction: column;
                 gap: 12px;
             }
-
+            
             .edu-meta {
                 text-align: left;
-            }
-
-            .leadership-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══ NAV ═══ -->
     <nav id="navbar">
         <div class="container">
             <a href="#" class="nav-logo">ariq<span>.</span></a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+                <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="#education" onclick="toggleMenu()">Education</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
             </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -828,25 +800,23 @@
         </div>
     </nav>
 
-    <!-- ═══ HERO ═══ -->
     <section class="hero">
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-label">Available for Internship</div>
-                <h1>
-                    Building systems<br>
-                    that <span class="accent">ship.</span>
-                </h1>
+            <div class="hero-content reveal active">
+                <div class="hero-label"><span></span> Available for Internship</div>
+                <h1>Building systems<br>that <span class="accent">ship.</span></h1>
                 <p class="hero-desc">
-                    I'm Ariq Haikal — a full-stack and mobile developer from Malaysia specializing in Flutter, Laravel, and React. I build production-ready ecosystems, not just prototypes.
+                    I'm Ariq Haikal — a full-stack & mobile developer from Malaysia. I engineer complete ecosystems using Flutter, Laravel, and React, focusing on scalability and user experience.
                 </p>
                 <div class="hero-actions">
                     <a href="#projects" class="btn btn-primary">
                         View Projects
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7.8H7.8"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
                     </a>
                     <a href="https://github.com/Ariqdoangg" target="_blank" class="btn btn-ghost">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.927.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                         GitHub
                     </a>
                 </div>
@@ -854,7 +824,6 @@
         </div>
     </section>
 
-    <!-- ═══ ABOUT ═══ -->
     <section id="about">
         <div class="container">
             <div class="about-grid">
@@ -862,16 +831,16 @@
                     <div class="section-label">About</div>
                     <h2 class="section-title">Developer with a systems mindset.</h2>
                     <p>
-                        Final-year Software Engineering student at Universiti Pendidikan Sultan Idris with a strong academic record and hands-on experience building multi-tier applications from the ground up.
+                        I am a final-year Software Engineering student at <strong>Universiti Pendidikan Sultan Idris (UPSI)</strong> with a strong academic record and a passion for full-stack development.
                     </p>
                     <p>
-                        I focus on building complete ecosystems — not isolated features. From mobile clients to admin dashboards to RESTful APIs, I design systems where every layer works together seamlessly.
+                        Unlike many, I don't just build "apps"—I build ecosystems. My strength lies in connecting mobile front-ends (Flutter) with robust back-ends (Laravel/React) to solve real-world problems. Whether it's a food rescue platform or a location-based game, I focus on clean architecture, API efficiency, and smooth UI/UX.
                     </p>
                 </div>
-                <div class="about-stats reveal reveal-delay-2">
+                <div class="stats-container reveal delay-200">
                     <div class="stat-card">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Production Projects</div>
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Production Apps</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">3.71</div>
@@ -879,153 +848,152 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">6+</div>
-                        <div class="stat-label">Technologies</div>
+                        <div class="stat-label">Core Tech Stack</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Full-Stack Systems</div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Commitment</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ SKILLS ═══ -->
     <section id="skills">
         <div class="container">
             <div class="section-header reveal">
                 <div class="section-label">Skills</div>
-                <h2 class="section-title">Technical toolkit.</h2>
-                <p class="section-desc">Focused on full-stack web and mobile development with production-grade tooling.</p>
+                <h2 class="section-title">Technical Toolkit.</h2>
+                <p class="section-desc">A comprehensive list of technologies I use to bring ideas to life.</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-group reveal reveal-delay-1">
-                    <div class="skill-group-title">Languages</div>
+                <div class="skill-group reveal delay-100">
+                    <div class="skill-group-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        Backend & DB
+                    </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">Laravel</span>
                         <span class="skill-tag">PHP</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">HTML / CSS</span>
-                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Supabase</span>
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">Sanctum Auth</span>
                     </div>
                 </div>
-                <div class="skill-group reveal reveal-delay-2">
-                    <div class="skill-group-title">Mobile</div>
+
+                <div class="skill-group reveal delay-200">
+                    <div class="skill-group-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        Mobile Development
+                    </div>
                     <div class="skill-tags">
                         <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Dart</span>
                         <span class="skill-tag">Google Maps API</span>
                         <span class="skill-tag">Geofencing</span>
+                        <span class="skill-tag">State Management</span>
                     </div>
                 </div>
-                <div class="skill-group reveal reveal-delay-3">
-                    <div class="skill-group-title">Frontend</div>
+
+                <div class="skill-group reveal delay-300">
+                    <div class="skill-group-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        Frontend Web
+                    </div>
                     <div class="skill-tags">
                         <span class="skill-tag">React.js</span>
                         <span class="skill-tag">Vue.js</span>
-                        <span class="skill-tag">Inertia.js</span>
                         <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">HTML5 / CSS3</span>
+                        <span class="skill-tag">JavaScript (ES6+)</span>
+                        <span class="skill-tag">Inertia.js</span>
                     </div>
                 </div>
-                <div class="skill-group reveal reveal-delay-1">
-                    <div class="skill-group-title">Backend</div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Laravel</span>
-                        <span class="skill-tag">REST API</span>
-                        <span class="skill-tag">Sanctum</span>
+
+                <div class="skill-group reveal delay-100">
+                    <div class="skill-group-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                        Tools & Workflow
                     </div>
-                </div>
-                <div class="skill-group reveal reveal-delay-2">
-                    <div class="skill-group-title">Database</div>
                     <div class="skill-tags">
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">Supabase</span>
-                    </div>
-                </div>
-                <div class="skill-group reveal reveal-delay-3">
-                    <div class="skill-group-title">Tools</div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">Git / GitHub</span>
+                        <span class="skill-tag">Postman</span>
                         <span class="skill-tag">Figma</span>
                         <span class="skill-tag">VS Code</span>
-                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Agile / Scrum</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ PROJECTS ═══ -->
     <section id="projects">
         <div class="container">
             <div class="section-header reveal">
                 <div class="section-label">Projects</div>
-                <h2 class="section-title">What I've built.</h2>
-                <p class="section-desc">Complete ecosystems with mobile apps, admin dashboards, and robust backend APIs.</p>
+                <h2 class="section-title">What I've Built.</h2>
+                <p class="section-desc">Real systems solving real problems. From campus food rescue to interactive geo-games.</p>
             </div>
             <div class="projects-grid">
 
-                <!-- RezekiHunter -->
-                <a href="https://github.com/Ariqdoangg/RezekiHunter" target="_blank" class="project-card reveal reveal-delay-1">
+                <a href="https://github.com/Ariqdoangg/RezekiHunter" target="_blank" class="project-card reveal">
                     <div class="project-content">
-                        <div class="project-type">Full-Stack Ecosystem</div>
+                        <div class="project-subtitle">Full-Stack Ecosystem</div>
                         <h3 class="project-title">RezekiHunter</h3>
                         <p class="project-desc">
-                            Campus food rescue platform connecting UPSI students with surplus food in real-time. 3-tier architecture with mobile app, admin dashboard, and RESTful API — processing live analytics with SVG charts and GPS-tagged food locations.
+                            A food rescue platform for UPSI students. It connects students with surplus food via real-time GPS tracking. Features a 3-tier architecture: Mobile App (Flutter) for users, Web Dashboard (React) for admins, and a robust Laravel API backend.
                         </p>
                         <div class="project-stack">
                             <span>Flutter</span>
                             <span>Laravel</span>
                             <span>React</span>
                             <span>MySQL</span>
-                            <span>Tailwind CSS</span>
+                            <span>Google Maps API</span>
                             <span>Sanctum</span>
                         </div>
                     </div>
                     <div class="project-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                     </div>
                 </a>
 
-                <!-- HuntSphere -->
-                <a href="https://github.com/Ariqdoangg/HuntSphere" target="_blank" class="project-card reveal reveal-delay-2">
+                <a href="https://github.com/Ariqdoangg/HuntSphere" target="_blank" class="project-card reveal delay-100">
                     <div class="project-content">
-                        <div class="project-type">Mobile Application</div>
+                        <div class="project-subtitle">Mobile Geo-Gaming</div>
                         <h3 class="project-title">HuntSphere</h3>
                         <p class="project-desc">
-                            GPS-based treasure hunt mobile platform with dual roles for facilitators and participants. Features precision geofencing with 10m accuracy, real-time leaderboards via Supabase Realtime, and QR code scanning for checkpoint validation.
+                            An interactive treasure hunt application leveraging Geofencing technology. Users explore the real world to unlock virtual rewards. Solved complex challenges regarding background location tracking and state management for seamless gameplay.
                         </p>
                         <div class="project-stack">
                             <span>Flutter</span>
                             <span>Dart</span>
-                            <span>Supabase</span>
-                            <span>Google Maps API</span>
                             <span>Geofencing</span>
+                            <span>Firebase</span>
+                            <span>Rest API</span>
                         </div>
                     </div>
                     <div class="project-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                     </div>
                 </a>
 
-                <!-- SkillSwap -->
-                <a href="https://github.com/Ariqdoangg/SkillSwap" target="_blank" class="project-card reveal reveal-delay-3">
+                <a href="#" class="project-card reveal delay-200">
                     <div class="project-content">
-                        <div class="project-type">Web Platform</div>
-                        <h3 class="project-title">SkillSwap</h3>
+                        <div class="project-subtitle">Web System</div>
+                        <h3 class="project-title">Academic Management Portal</h3>
                         <p class="project-desc">
-                            Community-driven skill exchange platform where users teach what they know and learn what they want. Smart matching algorithm connects complementary skill sets with real-time chat, session scheduling, and two-way review system.
+                            A centralized system for managing student coursework and lecturer evaluations. Built with a Vue.js frontend and PHP backend, prioritizing security and efficient database queries for large datasets.
                         </p>
                         <div class="project-stack">
-                            <span>Laravel 12</span>
-                            <span>React</span>
-                            <span>Inertia.js</span>
-                            <span>Tailwind CSS</span>
+                            <span>Vue.js</span>
+                            <span>PHP</span>
                             <span>MySQL</span>
+                            <span>Tailwind CSS</span>
                         </div>
                     </div>
                     <div class="project-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                     </div>
                 </a>
 
@@ -1033,116 +1001,125 @@
         </div>
     </section>
 
-    <!-- ═══ EDUCATION ═══ -->
     <section id="education">
         <div class="container">
             <div class="section-header reveal">
                 <div class="section-label">Education</div>
-                <h2 class="section-title">Background.</h2>
+                <h2 class="section-title">My Background.</h2>
             </div>
-
-            <div class="edu-card reveal reveal-delay-1">
-                <div>
-                    <div class="edu-degree">Bachelor of Software Engineering (Hons.)</div>
-                    <div class="edu-school">Universiti Pendidikan Sultan Idris (UPSI)</div>
+            
+            <div class="edu-card reveal">
+                <div class="edu-info">
+                    <h3>Bachelor of Software Engineering</h3>
+                    <p>Universiti Pendidikan Sultan Idris (UPSI)</p>
                 </div>
                 <div class="edu-meta">
-                    <div class="edu-year">Expected Oct 2026</div>
-                    <div class="edu-gpa">CGPA 3.71 / 4.00</div>
+                    <span class="edu-year">2021 — Present</span>
+                    <div class="edu-gpa">CGPA: 3.71</div>
                 </div>
             </div>
 
-            <div class="leadership-grid">
-                <div class="leadership-item reveal reveal-delay-1">
-                    <strong>Deputy Director</strong>
-                    Entrepreneurship Program, Faculty Level
+            <div class="edu-card reveal delay-100">
+                <div class="edu-info">
+                    <h3>Foundation in Science</h3>
+                    <p>Pre-University Matriculation</p>
                 </div>
-                <div class="leadership-item reveal reveal-delay-2">
-                    <strong>Participant</strong>
-                    DICRATHON Innovation Competition
-                </div>
-                <div class="leadership-item reveal reveal-delay-3">
-                    <strong>Certified</strong>
-                    Laravel Mastery 2.0
-                </div>
-                <div class="leadership-item reveal reveal-delay-4">
-                    <strong>Committee Member</strong>
-                    HIMSAK Student Organization
+                <div class="edu-meta">
+                    <span class="edu-year">2020 — 2021</span>
+                    <div class="edu-gpa">Completed with Distinction</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ CONTACT ═══ -->
-    <section id="contact" class="contact">
+    <section id="contact">
         <div class="container">
-            <div class="section-header reveal" style="text-align:center;">
-                <div class="section-label">Contact</div>
-                <h2 class="section-title">Let's connect.</h2>
-                <p class="section-desc" style="margin:0 auto;">
-                    Open to internship opportunities and collaboration. Reach out through any of the channels below.
+            <div class="contact-cta reveal">
+                <div class="section-label">Get In Touch</div>
+                <h2 class="section-title">Let's work together.</h2>
+                <p class="section-desc" style="margin: 0 auto;">
+                    I am currently available for internship opportunities. Whether you have a question or just want to say hi, my inbox is open.
                 </p>
-            </div>
-            <div class="contact-links reveal reveal-delay-2">
-                <a href="mailto:4riqhaika1@email.com" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-                    Email
-                </a>
-                <a href="https://github.com/Ariqdoangg" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://linkedin.com/in/ariqhaikal" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    LinkedIn
-                </a>
+                
+                <div style="margin-top: 40px;">
+                    <a href="mailto:ariqhaikal@example.com" class="btn btn-primary">
+                        Say Hello
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 13 11 2 2"></polygon></svg>
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/Ariqdoangg" target="_blank" class="social-link" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.927.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ FOOTER ═══ -->
     <footer>
         <div class="container">
-            <p>Designed & built by Ariq Haikal</p>
+            <p>&copy; 2024 Ariq Haikal. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ═══ SCRIPTS ═══ -->
     <script>
-        // Navbar scroll effect
-        const nav = document.getElementById('navbar');
+        // 1. Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        function toggleMenu() {
+            navLinks.classList.toggle('open');
+            navToggle.classList.toggle('open');
+        }
+
+        navToggle.addEventListener('click', toggleMenu);
+
+        // 2. Navbar Glass Effect on Scroll
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
 
-        // Mobile nav toggle
-        const toggle = document.getElementById('navToggle');
-        const links = document.getElementById('navLinks');
-        toggle.addEventListener('click', () => {
-            links.classList.toggle('open');
-        });
-
-        // Close mobile nav on link click
-        links.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', () => links.classList.remove('open'));
-        });
-
-        // Intersection Observer for reveal animations
+        // 3. Scroll Reveal Animation
         const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            root: null,
+            threshold: 0.15, // Trigger when 15% visible
+            rootMargin: "0px 0px -50px 0px"
         });
 
-        revealElements.forEach(el => observer.observe(el));
-    </script>
+        revealElements.forEach(el => revealObserver.observe(el));
 
+        // 4. Mouse Move Gradient Effect for Project Cards
+        const cards = document.querySelectorAll('.project-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+    </script>
 </body>
 </html>
