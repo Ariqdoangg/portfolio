@@ -509,10 +509,12 @@
             border: 1px solid var(--border);
         }
 
-        .project-image svg {
+        .project-image svg,
+        .project-image img {
             width: 100%;
             height: 100%;
             display: block;
+            object-fit: cover;
         }
 
         .project-content {
@@ -1048,80 +1050,7 @@
                 <!-- PROJECT 1: RezekiHunter -->
                 <div class="project-card reveal">
                     <div class="project-image">
-                        <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                            <defs>
-                                <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stop-color="#0F2F22"/>
-                                    <stop offset="100%" stop-color="#1A1A28"/>
-                                </linearGradient>
-                                <linearGradient id="card1" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#1F3A2E"/>
-                                    <stop offset="100%" stop-color="#152920"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="600" height="380" fill="url(#bg1)"/>
-                            <!-- map grid background -->
-                            <g stroke="#34D399" stroke-width="0.5" opacity="0.15">
-                                <path d="M0,80 L600,80 M0,160 L600,160 M0,240 L600,240 M0,320 L600,320"/>
-                                <path d="M100,0 L100,380 M200,0 L200,380 M300,0 L300,380 M400,0 L400,380 M500,0 L500,380"/>
-                            </g>
-                            <!-- phone mockup -->
-                            <rect x="60" y="50" width="200" height="280" rx="22" fill="#0A0A0F" stroke="#34D399" stroke-width="1.5"/>
-                            <rect x="72" y="76" width="176" height="240" rx="10" fill="#11111A"/>
-                            <!-- header -->
-                            <rect x="84" y="90" width="80" height="10" rx="3" fill="#34D399"/>
-                            <rect x="84" y="106" width="120" height="6" rx="2" fill="#3A3A4E"/>
-                            <!-- map preview -->
-                            <rect x="84" y="124" width="152" height="92" rx="8" fill="#1A2E22"/>
-                            <circle cx="130" cy="160" r="5" fill="#34D399"/>
-                            <circle cx="130" cy="160" r="11" fill="none" stroke="#34D399" stroke-width="1" opacity="0.5"/>
-                            <circle cx="180" cy="180" r="3" fill="#FFA94D"/>
-                            <circle cx="200" cy="150" r="3" fill="#FFA94D"/>
-                            <!-- food cards -->
-                            <rect x="84" y="226" width="152" height="32" rx="6" fill="#1A2E22"/>
-                            <rect x="92" y="234" width="20" height="16" rx="3" fill="#34D399"/>
-                            <rect x="118" y="234" width="80" height="5" rx="2" fill="#5A7B6A"/>
-                            <rect x="118" y="245" width="50" height="4" rx="2" fill="#3A4E44"/>
-                            <rect x="84" y="266" width="152" height="32" rx="6" fill="#1A2E22"/>
-                            <rect x="92" y="274" width="20" height="16" rx="3" fill="#34D399"/>
-                            <rect x="118" y="274" width="70" height="5" rx="2" fill="#5A7B6A"/>
-                            <rect x="118" y="285" width="60" height="4" rx="2" fill="#3A4E44"/>
-
-                            <!-- desktop dashboard mockup -->
-                            <rect x="290" y="80" width="270" height="180" rx="10" fill="url(#card1)" stroke="#2E5A45" stroke-width="1"/>
-                            <circle cx="305" cy="95" r="3" fill="#FF6B6B"/>
-                            <circle cx="316" cy="95" r="3" fill="#FFD93D"/>
-                            <circle cx="327" cy="95" r="3" fill="#34D399"/>
-                            <rect x="305" y="115" width="80" height="8" rx="2" fill="#34D399"/>
-                            <rect x="305" y="130" width="240" height="4" rx="2" fill="#2A4438"/>
-                            <!-- stats cards -->
-                            <rect x="305" y="148" width="70" height="44" rx="6" fill="#1B2E25"/>
-                            <rect x="313" y="156" width="32" height="6" rx="2" fill="#34D399"/>
-                            <rect x="313" y="170" width="50" height="14" rx="3" fill="#34D399" opacity="0.8"/>
-                            <rect x="385" y="148" width="70" height="44" rx="6" fill="#1B2E25"/>
-                            <rect x="393" y="156" width="32" height="6" rx="2" fill="#FFA94D"/>
-                            <rect x="393" y="170" width="40" height="14" rx="3" fill="#FFA94D" opacity="0.8"/>
-                            <rect x="465" y="148" width="80" height="44" rx="6" fill="#1B2E25"/>
-                            <rect x="473" y="156" width="32" height="6" rx="2" fill="#9B7AFF"/>
-                            <rect x="473" y="170" width="55" height="14" rx="3" fill="#9B7AFF" opacity="0.8"/>
-                            <!-- chart bars -->
-                            <rect x="305" y="204" width="240" height="46" rx="6" fill="#1B2E25"/>
-                            <rect x="320" y="232" width="14" height="10" rx="2" fill="#34D399"/>
-                            <rect x="340" y="222" width="14" height="20" rx="2" fill="#34D399"/>
-                            <rect x="360" y="216" width="14" height="26" rx="2" fill="#34D399"/>
-                            <rect x="380" y="226" width="14" height="16" rx="2" fill="#34D399"/>
-                            <rect x="400" y="212" width="14" height="30" rx="2" fill="#34D399"/>
-                            <rect x="420" y="218" width="14" height="24" rx="2" fill="#34D399"/>
-                            <rect x="440" y="208" width="14" height="34" rx="2" fill="#34D399"/>
-                            <rect x="460" y="220" width="14" height="22" rx="2" fill="#34D399"/>
-                            <rect x="480" y="214" width="14" height="28" rx="2" fill="#34D399"/>
-                            <rect x="500" y="225" width="14" height="17" rx="2" fill="#34D399"/>
-                            <rect x="520" y="216" width="14" height="26" rx="2" fill="#34D399"/>
-
-                            <!-- label -->
-                            <text x="300" y="305" font-family="Syne, sans-serif" font-size="22" font-weight="700" fill="#34D399" letter-spacing="-0.5">RezekiHunter</text>
-                            <text x="300" y="330" font-family="Outfit, sans-serif" font-size="13" fill="#9999AB">Food rescue ecosystem · 3-tier architecture</text>
-                        </svg>
+                        <img src="images/rezekihunter.png" alt="RezekiHunter — Food rescue platform connecting students with surplus meals" loading="lazy">
                     </div>
 
                     <div class="project-content">
@@ -1149,78 +1078,7 @@
                 <!-- PROJECT 2: HuntSphere -->
                 <div class="project-card reveal">
                     <div class="project-image">
-                        <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                            <defs>
-                                <radialGradient id="bg2" cx="50%" cy="50%" r="60%">
-                                    <stop offset="0%" stop-color="#1A2A4F"/>
-                                    <stop offset="100%" stop-color="#0E0E1A"/>
-                                </radialGradient>
-                            </defs>
-                            <rect width="600" height="380" fill="url(#bg2)"/>
-                            <!-- topographic lines -->
-                            <g stroke="#8B5CF6" stroke-width="0.6" fill="none" opacity="0.25">
-                                <ellipse cx="300" cy="190" rx="280" ry="160"/>
-                                <ellipse cx="300" cy="190" rx="220" ry="125"/>
-                                <ellipse cx="300" cy="190" rx="160" ry="92"/>
-                                <ellipse cx="300" cy="190" rx="100" ry="58"/>
-                            </g>
-                            <!-- phone -->
-                            <rect x="220" y="40" width="160" height="300" rx="24" fill="#0A0A0F" stroke="#8B5CF6" stroke-width="1.5"/>
-                            <rect x="232" y="68" width="136" height="260" rx="12" fill="#11111A"/>
-                            <!-- map -->
-                            <rect x="244" y="84" width="112" height="140" rx="8" fill="#1A1F35"/>
-                            <!-- geofence circles -->
-                            <circle cx="300" cy="154" r="42" fill="none" stroke="#34D399" stroke-width="1.5" stroke-dasharray="4 3"/>
-                            <circle cx="300" cy="154" r="28" fill="#34D399" opacity="0.15"/>
-                            <circle cx="300" cy="154" r="6" fill="#34D399"/>
-                            <!-- treasure pins -->
-                            <g transform="translate(270, 130)">
-                                <path d="M0,0 L8,12 L-8,12 Z" fill="#FFD93D"/>
-                                <circle cx="0" cy="-3" r="6" fill="#FFD93D"/>
-                            </g>
-                            <g transform="translate(330, 175)">
-                                <path d="M0,0 L8,12 L-8,12 Z" fill="#8B5CF6"/>
-                                <circle cx="0" cy="-3" r="6" fill="#8B5CF6"/>
-                            </g>
-                            <!-- score card -->
-                            <rect x="244" y="234" width="112" height="34" rx="6" fill="#1A1F35"/>
-                            <rect x="252" y="242" width="40" height="6" rx="2" fill="#FFD93D"/>
-                            <rect x="252" y="254" width="60" height="8" rx="2" fill="#8B5CF6"/>
-                            <!-- button -->
-                            <rect x="244" y="278" width="112" height="36" rx="10" fill="#34D399"/>
-                            <rect x="282" y="293" width="36" height="6" rx="2" fill="#0A0A0F"/>
-
-                            <!-- floating badges -->
-                            <g transform="translate(70, 90)">
-                                <rect width="120" height="60" rx="12" fill="#14141F" stroke="#8B5CF6" stroke-width="1"/>
-                                <circle cx="22" cy="30" r="14" fill="#8B5CF6" opacity="0.2"/>
-                                <path d="M16,30 L21,35 L29,25" stroke="#8B5CF6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                <rect x="44" y="20" width="60" height="6" rx="2" fill="#9999AB"/>
-                                <rect x="44" y="32" width="40" height="5" rx="2" fill="#5C5C72"/>
-                            </g>
-                            <g transform="translate(410, 90)">
-                                <rect width="120" height="60" rx="12" fill="#14141F" stroke="#34D399" stroke-width="1"/>
-                                <circle cx="22" cy="30" r="14" fill="#34D399" opacity="0.2"/>
-                                <path d="M22,22 L22,30 L28,33" stroke="#34D399" stroke-width="2" fill="none" stroke-linecap="round"/>
-                                <rect x="44" y="20" width="60" height="6" rx="2" fill="#9999AB"/>
-                                <rect x="44" y="32" width="40" height="5" rx="2" fill="#5C5C72"/>
-                            </g>
-                            <g transform="translate(70, 230)">
-                                <rect width="120" height="60" rx="12" fill="#14141F" stroke="#FFD93D" stroke-width="1"/>
-                                <circle cx="22" cy="30" r="14" fill="#FFD93D" opacity="0.2"/>
-                                <path d="M22,20 L25,28 L33,28 L27,33 L29,41 L22,36 L15,41 L17,33 L11,28 L19,28 Z" fill="#FFD93D"/>
-                                <rect x="44" y="20" width="60" height="6" rx="2" fill="#9999AB"/>
-                                <rect x="44" y="32" width="40" height="5" rx="2" fill="#5C5C72"/>
-                            </g>
-                            <g transform="translate(410, 230)">
-                                <rect width="120" height="60" rx="12" fill="#14141F" stroke="#FF6B9D" stroke-width="1"/>
-                                <circle cx="22" cy="30" r="14" fill="#FF6B9D" opacity="0.2"/>
-                                <circle cx="22" cy="30" r="6" fill="#FF6B9D"/>
-                                <circle cx="22" cy="30" r="11" fill="none" stroke="#FF6B9D" stroke-width="1.5"/>
-                                <rect x="44" y="20" width="60" height="6" rx="2" fill="#9999AB"/>
-                                <rect x="44" y="32" width="40" height="5" rx="2" fill="#5C5C72"/>
-                            </g>
-                        </svg>
+                        <img src="images/huntsphere.png" alt="HuntSphere — GPS-based treasure hunt mobile app" loading="lazy">
                     </div>
 
                     <div class="project-content">
@@ -1252,73 +1110,7 @@
                 <!-- PROJECT 3: SkillSwap -->
                 <div class="project-card reveal">
                     <div class="project-image">
-                        <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                            <defs>
-                                <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stop-color="#1A0F2E"/>
-                                    <stop offset="100%" stop-color="#11111A"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="600" height="380" fill="url(#bg3)"/>
-                            <!-- diagonal accents -->
-                            <g opacity="0.15">
-                                <line x1="0" y1="380" x2="600" y2="0" stroke="#FF6B9D" stroke-width="1"/>
-                                <line x1="0" y1="320" x2="600" y2="-60" stroke="#34D399" stroke-width="1"/>
-                            </g>
-                            <!-- browser frame -->
-                            <rect x="40" y="40" width="520" height="300" rx="12" fill="#14141F" stroke="#2E2E47" stroke-width="1"/>
-                            <rect x="40" y="40" width="520" height="32" rx="12" fill="#0A0A0F"/>
-                            <rect x="40" y="56" width="520" height="16" fill="#0A0A0F"/>
-                            <circle cx="58" cy="56" r="4" fill="#FF6B6B"/>
-                            <circle cx="74" cy="56" r="4" fill="#FFD93D"/>
-                            <circle cx="90" cy="56" r="4" fill="#34D399"/>
-                            <rect x="120" y="49" width="200" height="14" rx="6" fill="#1F1F2E"/>
-                            <rect x="130" y="54" width="100" height="4" rx="2" fill="#5C5C72"/>
-
-                            <!-- header -->
-                            <rect x="60" y="92" width="100" height="12" rx="3" fill="#FF6B9D"/>
-                            <rect x="460" y="88" width="80" height="20" rx="6" fill="#FF6B9D"/>
-
-                            <!-- match cards row -->
-                            <g transform="translate(60, 124)">
-                                <rect width="150" height="180" rx="10" fill="#1B1428" stroke="#FF6B9D" stroke-width="1"/>
-                                <circle cx="75" cy="50" r="26" fill="#2A1F3D"/>
-                                <text x="75" y="58" font-family="Syne" font-size="22" font-weight="700" fill="#FF6B9D" text-anchor="middle">SK</text>
-                                <rect x="30" y="92" width="90" height="8" rx="2" fill="#F4F4F7"/>
-                                <rect x="40" y="108" width="70" height="5" rx="2" fill="#5C5C72"/>
-                                <rect x="20" y="128" width="50" height="20" rx="6" fill="#34D399" opacity="0.2"/>
-                                <text x="45" y="142" font-family="Outfit" font-size="9" fill="#34D399" text-anchor="middle" font-weight="600">Design</text>
-                                <rect x="80" y="128" width="50" height="20" rx="6" fill="#FFD93D" opacity="0.2"/>
-                                <text x="105" y="142" font-family="Outfit" font-size="9" fill="#FFD93D" text-anchor="middle" font-weight="600">Music</text>
-                                <rect x="20" y="156" width="110" height="14" rx="6" fill="#FF6B9D"/>
-                            </g>
-
-                            <g transform="translate(225, 124)">
-                                <rect width="150" height="180" rx="10" fill="#1B1428" stroke="#34D399" stroke-width="1"/>
-                                <circle cx="75" cy="50" r="26" fill="#1F2D26"/>
-                                <text x="75" y="58" font-family="Syne" font-size="22" font-weight="700" fill="#34D399" text-anchor="middle">LD</text>
-                                <rect x="30" y="92" width="90" height="8" rx="2" fill="#F4F4F7"/>
-                                <rect x="40" y="108" width="70" height="5" rx="2" fill="#5C5C72"/>
-                                <rect x="20" y="128" width="55" height="20" rx="6" fill="#9B7AFF" opacity="0.2"/>
-                                <text x="47" y="142" font-family="Outfit" font-size="9" fill="#9B7AFF" text-anchor="middle" font-weight="600">Coding</text>
-                                <rect x="85" y="128" width="45" height="20" rx="6" fill="#FF6B9D" opacity="0.2"/>
-                                <text x="107" y="142" font-family="Outfit" font-size="9" fill="#FF6B9D" text-anchor="middle" font-weight="600">Photo</text>
-                                <rect x="20" y="156" width="110" height="14" rx="6" fill="#34D399"/>
-                            </g>
-
-                            <g transform="translate(390, 124)">
-                                <rect width="150" height="180" rx="10" fill="#1B1428" stroke="#FFD93D" stroke-width="1"/>
-                                <circle cx="75" cy="50" r="26" fill="#2D2A1A"/>
-                                <text x="75" y="58" font-family="Syne" font-size="22" font-weight="700" fill="#FFD93D" text-anchor="middle">RM</text>
-                                <rect x="30" y="92" width="90" height="8" rx="2" fill="#F4F4F7"/>
-                                <rect x="40" y="108" width="70" height="5" rx="2" fill="#5C5C72"/>
-                                <rect x="20" y="128" width="50" height="20" rx="6" fill="#FF6B9D" opacity="0.2"/>
-                                <text x="45" y="142" font-family="Outfit" font-size="9" fill="#FF6B9D" text-anchor="middle" font-weight="600">Cook</text>
-                                <rect x="80" y="128" width="50" height="20" rx="6" fill="#34D399" opacity="0.2"/>
-                                <text x="105" y="142" font-family="Outfit" font-size="9" fill="#34D399" text-anchor="middle" font-weight="600">Yoga</text>
-                                <rect x="20" y="156" width="110" height="14" rx="6" fill="#FFD93D"/>
-                            </g>
-                        </svg>
+                        <img src="images/skillswap.png" alt="SkillSwap — Community marketplace for skill exchange" loading="lazy">
                     </div>
 
                     <div class="project-content">
@@ -1372,7 +1164,7 @@
                         <div class="stat-label">Production Systems Shipped</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">3.71</div>
+                        <div class="stat-number">3.75</div>
                         <div class="stat-label">CGPA</div>
                     </div>
                     <div class="stat-card">
@@ -1511,7 +1303,7 @@
                         Start Your Project
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
-                    <a href="https://wa.me/60000000000" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+                    <a href="https://wa.me/601137583237?text=Hi%20Ariq%2C%20I%27m%20interested%20in%20discussing%20a%20project." target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.484.709.306 1.263.489 1.694.626.712.227 1.36.195 1.871.121.571-.091 1.758-.721 2.006-1.413.255-.69.255-1.275.18-1.413-.074-.135-.27-.21-.57-.345m-5.446 7.443h-.016c-1.77 0-3.524-.48-5.055-1.38l-.36-.214-3.75.975 1.005-3.645-.239-.375a9.869 9.869 0 0 1-1.516-5.26c0-5.445 4.455-9.885 9.942-9.885a9.865 9.865 0 0 1 7.022 2.91 9.788 9.788 0 0 1 2.913 6.99c-.005 5.444-4.46 9.885-9.935 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a12.062 12.062 0 0 0 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.495-8.411"/></svg>
                         WhatsApp Me
                     </a>
